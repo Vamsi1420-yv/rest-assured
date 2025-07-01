@@ -89,40 +89,44 @@
     </mailingList>
   </mailingLists>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!-- ✅ Use GMavenPlus instead of deprecated GMaven -->
-        <plugin>
-          <groupId>org.codehaus.gmavenplus</groupId>
-          <artifactId>gmavenplus-plugin</artifactId>
-          <version>${gmavenplus.version}</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>addSources</goal>
-                <goal>addTestSources</goal>
-                <goal>generateStubs</goal>
-                <goal>generateTestStubs</goal>
-                <goal>compile</goal>
-                <goal>compileTests</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+ <build>
+  <pluginManagement>
+    <plugins>
+      <!-- ✅ Use GMavenPlus instead of deprecated GMaven -->
+      <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>${gmavenplus.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>addSources</goal>
+              <goal>addTestSources</goal>
+              <goal>generateStubs</goal>
+              <goal>generateTestStubs</goal>
+              <goal>compile</goal>
+              <goal>compileTests</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </pluginManagement>
 
-  <modules>
-    <module>modules</module>
-    <module>rest-assured</module>
-    <module>rest-assured-all</module>
-    <module>examples</module>
-    <module>json-path</module>
-    <module>rest-assured-common</module>
-    <module>xml-path</module>
-  </modules>
+  <plugins>
+    <!-- Include other regular plugins here, like maven-compiler-plugin, surefire, etc. -->
+  </plugins>
+</build>
+
+<modules>
+  <module>modules</module>
+  <module>rest-assured</module>
+  <module>rest-assured-all</module>
+  <module>examples</module>
+  <module>json-path</module>
+  <module>rest-assured-common</module>
+  <module>xml-path</module>
+</modules>
 <build>
     <pluginManagement>
         <plugins>
