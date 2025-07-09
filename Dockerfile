@@ -1,20 +1,22 @@
-# ---- Stage 1: Build the application ----
+# Stage 1: Build the library with Maven
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 COPY . .
 
+# Run Maven package (without tests for faster build)
 RUN mvn clean package -DskipTests
 
-# TEMP: Debug file structure
-RUN find /app
+# TEMP: List built artifacts (for debug)
+RUN find /app -name "*.jar"
 
-# ---- Stage 2: Package the app ----
-FROM eclipse-temurin:17-jdk
+# Stage 2: (Optional) Copy artifacts to a smaller image
+# Only useful if you want to extract the built .jar files
 
-WORKDIR /app
+FROM alpine:latest
+WORKDIR /output
 
-# Update this path based on what you see in `find` output
-COPY --from=build /app/<correct-module>/target/*.jar app.jar
+# Copy all built JARs from build stage
+COPY --from=build /app /output
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Just show what was copi
