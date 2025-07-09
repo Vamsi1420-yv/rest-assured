@@ -1,19 +1,24 @@
-# Step 1: Build the application using Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# ---- Stage 1: Build the application ----
+FROM maven:3.9.6-eclipse-temurin-17 as build
 
+# Set working directory
 WORKDIR /app
 
+# Copy the source code
 COPY . .
 
-# Build everything (assumes multi-module), skip tests
+# Build the project (adjust module name if needed)
 RUN mvn clean package -DskipTests
 
-# Step 2: Minimal runtime image
-FROM eclipse-temurin:17-jre
+# ---- Stage 2: Run the application ----
+FROM eclipse-temurin:17-jdk
 
+# Set working directory in the runtime image
 WORKDIR /app
 
-# Copy actual JAR from correct submodule (adjust path below if needed)
-COPY --from=build /app/rest-assured/target/*.jar app.jar
+# Copy the built JAR from the build stage
+# Replace with correct module path (e.g., rest-assured-examples)
+COPY --from=build /app/rest-assured-examples/target/*.jar app.jar
 
+# Run the JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
